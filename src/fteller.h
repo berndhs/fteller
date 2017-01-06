@@ -44,7 +44,7 @@ private slots:
   void EditSettings();
   void Restart ();
   void ProcessDone (int status, QProcess::ExitStatus xSt);
-//  void SetSettings ();
+  void UpdateSettings ();
 //  void About ();
   void License ();
 //  void Exiting ();
@@ -58,6 +58,8 @@ private:
   Ui_FTellerMain      mainUi;
   QStringList     fortuneData;
   QTimer       *fortuneTicker;
+  std::int32_t  tickerSecs;
+  QString       tickerSetting;
   QStringList     configMessages;
 
   ConfigEdit       configEdit;

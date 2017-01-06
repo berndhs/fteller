@@ -36,7 +36,7 @@ main (int argc, char *argv[])
 
   QApplication  app (argc, argv);
   QCoreApplication::setOrganizationName ("BerndStramm");
-  QCoreApplication::setOrganizationDomain ("bernd-stramm.com");
+  QCoreApplication::setOrganizationDomain ("berndhs.com");
   QCoreApplication::setApplicationName ("fteller");
   deliberate::ProgramVersion pv ("fteller");
   QCoreApplication::setApplicationVersion (pv.Version());

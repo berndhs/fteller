@@ -12,16 +12,54 @@ fteller::fteller(QWidget *parent, Qt::WindowFlags flags)
 {
   mainUi.setupUi(this);
   fortuneTicker = new QTimer(this);
+  tickerSetting = QString ("delays/updatesFrequency");
+  if (Settings().contains(tickerSetting)) {
+    tickerSecs = Settings().value(tickerSetting).toInt();
+  } else {
+    tickerSecs = 5*60; // seconds;
+    Settings().setValue(tickerSetting,QVariant(tickerSecs));
+    Settings().sync();
+  }
+  fortuneTicker->start(1000*tickerSecs);
   Connect();
   License();
 }
+void
+fteller::Connect ()
+{
+  mainUi.optionsButton->setMaxCount(int(UIOptions::Maximum));
+  mainUi.optionsButton->insertItem (int(UIOptions::Options),tr("Options"));
+  mainUi.optionsButton->insertItem (int(UIOptions::EditSettings),tr("Edit Settings"));
+  mainUi.optionsButton->insertItem(int(UIOptions::Nothing),tr("Nada"));
+  connect (&runFortune,SIGNAL(finished(int,QProcess::ExitStatus)),
+           this,SLOT(ProcessDone(int,QProcess::ExitStatus)));
+  connect (fortuneTicker,SIGNAL(timeout()),this,SLOT(Restart()));
+  connect (mainUi.optionsButton,SIGNAL(currentIndexChanged(int)),
+           this,SLOT(ComboPointAt(int)));
+  connect (mainUi.optionsButton,SIGNAL(activated(int)),
+           this,SLOT(ComboSlot(int)));
+  connect (mainUi.quitButton,SIGNAL(released()),
+           this,SLOT(Quit()));
+  connect (mainUi.refreshButton,SIGNAL(released()),
+           this,SLOT(Restart()));
+//  connect (mainUi.actionSettings, SIGNAL (triggered()),
+//           this, SLOT (EditSettings()));
+//  connect (mainUi.actionAbout, SIGNAL (triggered()),
+//           this, SLOT (About ()));
+//  connect (mainUi.actionLicense, SIGNAL (triggered()),
+//           this, SLOT (License ()));
+//  connect (mainUi.actionRestart, SIGNAL (triggered()),
+//           this, SLOT (Restart ()));
+}
 
-void fteller::License()
+
+void
+fteller::License()
 {
   QFile licFile;
   licFile.setFileName(":/help/LICENSE.txt");
   licFile.open(QFile::ReadOnly);
-  QByteArray licData ("No License Found!!");
+  QByteArray licData ("No License Found !!");
   if (licFile.isOpen()) {
     licData = licFile.readAll();
   }
@@ -32,11 +70,13 @@ void fteller::License()
 bool
 fteller::Run ()
 {
-  qDebug () << " Start fteller";
+  qDebug () << " Start fteller \n" << Q_FUNC_INFO;
   QSize defaultSize = size();
-  QSize newsize = Settings().value ("sizes/main", defaultSize).toSize();
+  QString sizeSetting ("sizes/main");
+  QSize newsize = Settings().value (sizeSetting, defaultSize).toSize();
   resize (newsize);
-  Settings().setValue ("sizes/main",newsize);
+  Settings().setValue (sizeSetting,QVariant(newsize));
+  Settings().sync();
   show ();
   return true;
 }
@@ -51,7 +91,8 @@ fteller::Quit()
 
 }
 
-void fteller::ComboSlot(int index)
+void
+fteller::ComboSlot(int index)
 {
   UIOptions ndx = static_cast<UIOptions>(index);
   qDebug() << Q_FUNC_INFO << int(ndx);
@@ -86,22 +127,33 @@ void
 fteller::EditSettings()
 {
   qDebug() << Q_FUNC_INFO;
+  configEdit.Exec ();
+  Settings().sync ();
 }
 
-void fteller::Restart()
+void
+fteller::Restart()
 {
   qDebug() << Q_FUNC_INFO;
   runFortune.setProgram("fortune");
   runFortune.start(QProcess::ReadOnly);
 }
 
-void fteller::ProcessDone(int status, QProcess::ExitStatus xSt)
+void
+fteller::ProcessDone(int status, QProcess::ExitStatus xSt)
 {
   qDebug() << Q_FUNC_INFO << status << xSt;
   Q_UNUSED(status);
   Q_UNUSED(xSt);
   QString output = runFortune.readAll();
   mainUi.textDisplay->setHtml(output);
+}
+
+void fteller::UpdateSettings()
+{
+  tickerSecs = Settings().value(tickerSetting).toInt();
+  fortuneTicker->stop();
+  fortuneTicker->start(1000*tickerSecs);
 }
 
 
@@ -111,32 +163,6 @@ fteller::CloseCleanup ()
   QSize currentSize = size();
   Settings().setValue ("sizes/main",currentSize);
   Settings().sync();
-}
-void
-fteller::Connect ()
-{
-  mainUi.optionsButton->setMaxCount(int(UIOptions::Maximum));
-  mainUi.optionsButton->insertItem (int(UIOptions::Options),tr("Options"));
-  mainUi.optionsButton->insertItem (int(UIOptions::EditSettings),tr("Edit Settings"));
-  mainUi.optionsButton->insertItem(int(UIOptions::Nothing),tr("Nada"));
-  connect (&runFortune,SIGNAL(finished(int,QProcess::ExitStatus)),
-           this,SLOT(ProcessDone(int,QProcess::ExitStatus)));
-  connect (mainUi.optionsButton,SIGNAL(currentIndexChanged(int)),
-           this,SLOT(ComboPointAt(int)));
-  connect (mainUi.optionsButton,SIGNAL(activated(int)),
-           this,SLOT(ComboSlot(int)));
-  connect (mainUi.quitButton,SIGNAL(released()),
-           this,SLOT(Quit()));
-  connect (mainUi.refreshButton,SIGNAL(released()),
-           this,SLOT(Restart()));
-//  connect (mainUi.actionSettings, SIGNAL (triggered()),
-//           this, SLOT (EditSettings()));
-//  connect (mainUi.actionAbout, SIGNAL (triggered()),
-//           this, SLOT (About ()));
-//  connect (mainUi.actionLicense, SIGNAL (triggered()),
-//           this, SLOT (License ()));
-//  connect (mainUi.actionRestart, SIGNAL (triggered()),
-//           this, SLOT (Restart ()));
 }
 
 
