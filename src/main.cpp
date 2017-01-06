@@ -23,7 +23,7 @@
  ****************************************************************/
 
 
-#include <QGuiApplication>
+#include <QApplication>
 #include "deliberate.h"
 #include "version.h"
 #include "cmdoptions.h"
@@ -33,6 +33,8 @@
 int
 main (int argc, char *argv[])
 {
+
+  QApplication  app (argc, argv);
   QCoreApplication::setOrganizationName ("BerndStramm");
   QCoreApplication::setOrganizationDomain ("bernd-stramm.com");
   QCoreApplication::setApplicationName ("fteller");
@@ -74,7 +76,6 @@ main (int argc, char *argv[])
   }
   bool showDebug = opts.SeenOpt ("debug");
   int result;
-  QGuiApplication  app (argc, argv);
 
 #if DELIBERATE_DEBUG
   deliberate::StartDebugLog (showDebug);

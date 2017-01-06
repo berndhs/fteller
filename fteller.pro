@@ -1,5 +1,5 @@
 #
-# nothing application
+# fortune application
 #
 
 #/****************************************************************
@@ -23,18 +23,15 @@
 # *  Boston, MA  02110-1301, USA.
 # ****************************************************************/
 
-MYNAME = denada
+MYNAME = fteller
 
 TEMPLATE = app
 
-QT += core widgets gui sql webengine webenginewidgets network xml
+QT += core widgets gui sql network xml
 CONFIG += debug_and_release
 DEFINES += DELIBERATE_DEBUG
 
 MAKEFILE = Make_$${MYNAME}
-!include ("options.pri") {
-  message ("no options.pri, using defaults")
-}
 
 CONFIG(debug, debug|release) {
   DEFINES += DELIBERATE_DEBUG=1
@@ -63,7 +60,6 @@ FORMS = \
         ui/$${MYNAME}.ui \
         ui/DebugLog.ui \
         ui/config-edit.ui \
-        ui/helpwin.ui \
         
 
 HEADERS = \
@@ -75,7 +71,6 @@ HEADERS = \
           src/delib-debug.h \
           src/deliberate.h \
           src/version.h \
-          src/helpview.h \
 
 
 SOURCES = \
@@ -86,5 +81,4 @@ SOURCES = \
           src/delib-debug.cpp \
           src/deliberate.cpp \
           src/version.cpp \
-          src/helpview.cpp \
 
