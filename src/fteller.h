@@ -8,6 +8,8 @@
 #include "config-edit.h"
 #include "ui_fteller.h"
 #include <QTimer>
+#include <QProcess>
+#include <cstdint>
 
 namespace fteller {
 
@@ -24,13 +26,24 @@ public:
            { configMessages.append (cm); }
   bool  Run ();
 
+  enum class UIOptions : std::int32_t {
+    Options=0,
+    EditSettings,
+    Nothing,
+    Maximum
+  };
+
 signals:
 
 private slots:
 
   void Quit ();
-//  void Restart ();
-//  void EditSettings ();
+  void ComboSlot(int index);
+  void ComboPointAt(int index);
+  void Options();
+  void EditSettings();
+  void Restart ();
+  void ProcessDone (int status, QProcess::ExitStatus xSt);
 //  void SetSettings ();
 //  void About ();
   void License ();
@@ -48,6 +61,7 @@ private:
   QStringList     configMessages;
 
   ConfigEdit       configEdit;
+  QProcess         runFortune;
 };
 
 } // namespace

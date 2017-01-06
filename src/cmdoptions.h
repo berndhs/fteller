@@ -2,7 +2,7 @@
 #define CMDOPTIONS_H
 
 //
-//  Copyright (C) 2009 - Bernd H Stramm 
+//  Copyright (C) 2017 - Bernd H Stramm 
 //
 
 /****************************************************************

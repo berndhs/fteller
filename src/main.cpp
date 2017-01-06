@@ -4,7 +4,7 @@
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2010, Bernd Stramm
+ * Copyright (C) 2017, Bernd Stramm
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -50,6 +50,7 @@ main (int argc, char *argv[])
 
   deliberate::CmdOptions  opts ("fteller");
   opts.AddSoloOption ("debug","D",QObject::tr("show Debug log window"));
+  opts.AddSoloOption ("quiet","Q",QObject::tr("Quiet, do not show Debug log window"));
   opts.AddStringOption ("logdebug","L",QObject::tr("write Debug log to file"));
 
   deliberate::UseMyOwnMessageHandler ();
@@ -74,7 +75,7 @@ main (int argc, char *argv[])
   if (opts.WantVersion ()) {
     exit (0);
   }
-  bool showDebug = opts.SeenOpt ("debug");
+  bool showDebug = !opts.SeenOpt ("quiet");
   int result;
 
 #if DELIBERATE_DEBUG

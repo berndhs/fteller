@@ -18,7 +18,7 @@
     <rect>
      <x>260</x>
      <y>10</y>
-     <width>80</width>
+     <width>121</width>
      <height>22</height>
     </rect>
    </property>
@@ -31,25 +31,12 @@
     <rect>
      <x>260</x>
      <y>50</y>
-     <width>80</width>
+     <width>121</width>
      <height>22</height>
     </rect>
    </property>
    <property name="text">
     <string>Quit</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="optionsButton">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>80</y>
-     <width>80</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Options</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="textDisplay">
@@ -59,6 +46,16 @@
      <y>0</y>
      <width>251</width>
      <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="optionsButton">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>80</y>
+     <width>121</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

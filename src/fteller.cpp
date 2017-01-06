@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QByteArray>
 #include <QFile>
+#include <QProcess>
 
 namespace fteller {
 
@@ -31,7 +32,7 @@ void fteller::License()
 bool
 fteller::Run ()
 {
-  qDebug () << " Start DeNada";
+  qDebug () << " Start fteller";
   QSize defaultSize = size();
   QSize newsize = Settings().value ("sizes/main", defaultSize).toSize();
   resize (newsize);
@@ -50,6 +51,59 @@ fteller::Quit()
 
 }
 
+void fteller::ComboSlot(int index)
+{
+  UIOptions ndx = static_cast<UIOptions>(index);
+  qDebug() << Q_FUNC_INFO << int(ndx);
+  switch (ndx) {
+    case (UIOptions::Options):
+      Options();
+      break;
+    case UIOptions::EditSettings:
+      EditSettings();
+      break;
+    case UIOptions::Nothing:
+      qDebug() << "picked no option";
+      break;
+    default:
+      break;
+    }
+}
+
+void
+fteller::ComboPointAt(int index)
+{
+  qDebug() << Q_FUNC_INFO << index;
+}
+
+void
+fteller::Options()
+{
+  qDebug() << Q_FUNC_INFO;
+}
+
+void
+fteller::EditSettings()
+{
+  qDebug() << Q_FUNC_INFO;
+}
+
+void fteller::Restart()
+{
+  qDebug() << Q_FUNC_INFO;
+  runFortune.setProgram("fortune");
+  runFortune.start(QProcess::ReadOnly);
+}
+
+void fteller::ProcessDone(int status, QProcess::ExitStatus xSt)
+{
+  qDebug() << Q_FUNC_INFO << status << xSt;
+  Q_UNUSED(status);
+  Q_UNUSED(xSt);
+  QString output = runFortune.readAll();
+  mainUi.textDisplay->setHtml(output);
+}
+
 
 void
 fteller::CloseCleanup ()
@@ -61,8 +115,20 @@ fteller::CloseCleanup ()
 void
 fteller::Connect ()
 {
-  connect (mainUi.quitButton, SIGNAL (released()),
-           this, SLOT (Quit()));
+  mainUi.optionsButton->setMaxCount(int(UIOptions::Maximum));
+  mainUi.optionsButton->insertItem (int(UIOptions::Options),tr("Options"));
+  mainUi.optionsButton->insertItem (int(UIOptions::EditSettings),tr("Edit Settings"));
+  mainUi.optionsButton->insertItem(int(UIOptions::Nothing),tr("Nada"));
+  connect (&runFortune,SIGNAL(finished(int,QProcess::ExitStatus)),
+           this,SLOT(ProcessDone(int,QProcess::ExitStatus)));
+  connect (mainUi.optionsButton,SIGNAL(currentIndexChanged(int)),
+           this,SLOT(ComboPointAt(int)));
+  connect (mainUi.optionsButton,SIGNAL(activated(int)),
+           this,SLOT(ComboSlot(int)));
+  connect (mainUi.quitButton,SIGNAL(released()),
+           this,SLOT(Quit()));
+  connect (mainUi.refreshButton,SIGNAL(released()),
+           this,SLOT(Restart()));
 //  connect (mainUi.actionSettings, SIGNAL (triggered()),
 //           this, SLOT (EditSettings()));
 //  connect (mainUi.actionAbout, SIGNAL (triggered()),

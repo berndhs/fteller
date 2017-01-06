@@ -5,7 +5,7 @@
 #/****************************************************************
 # * This file is distributed under the following license:
 # *
-# * Copyright (C) 2010, Bernd Stramm
+# * Copyright (C) 2017, Bernd Stramm
 # *
 # *  This program is free software; you can redistribute it and/or
 # *  modify it under the terms of the GNU General Public License
@@ -41,7 +41,7 @@ CONFIG(debug, debug|release) {
   message ("DEBUG c-flags used $${QMAKE_CFLAGS_DEBUG}")
 } else {
   DEFINES += DELIBERATE_DEBUG=0
-  TARGET = bin/$${MYNAME}
+  TARGET = $${MYNAME}
   OBJECTS_DIR = tmp/release/obj
   QMAKE_CXXFLAGS_RELEASE -= -g
   QMAKE_CFLAGS_RELEASE -= -g
