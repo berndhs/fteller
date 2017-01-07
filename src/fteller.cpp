@@ -147,6 +147,7 @@ fteller::ProcessDone(int status, QProcess::ExitStatus xSt)
   Q_UNUSED(xSt);
   QString output = runFortune.readAll();
   mainUi.textDisplay->setHtml(output);
+  fortuneTicker->start();
 }
 
 void fteller::UpdateSettings()

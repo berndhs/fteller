@@ -13,49 +13,42 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="refreshButton">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>10</y>
-     <width>121</width>
-     <height>22</height>
+     <x>300</x>
+     <y>-20</y>
+     <width>101</width>
+     <height>291</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Refresh</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="quitButton">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>50</y>
-     <width>121</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Quit</string>
-   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="refreshButton">
+      <property name="text">
+       <string>Refresh</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QComboBox" name="optionsButton"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="quitButton">
+      <property name="text">
+       <string>Quit</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QTextBrowser" name="textDisplay">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>251</width>
-     <height>211</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="optionsButton">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>80</y>
-     <width>121</width>
-     <height>22</height>
+     <width>301</width>
+     <height>301</height>
     </rect>
    </property>
   </widget>
