@@ -28,8 +28,7 @@ MYNAME = fteller
 TEMPLATE = app
 
 QT += core widgets gui
-#QT += sql network xml
-CONFIG += debug_and_release
+#CONFIG += debug_and_release
 DEFINES += DELIBERATE_DEBUG
 
 #MAKEFILE = Make_$${MYNAME}
@@ -50,10 +49,10 @@ DEFINES += DELIBERATE_DEBUG
 
 
 
-UI_DIR = tmp/ui
-MOC_DIR = tmp/moc
-RCC_DIR = tmp/rcc
-OBJECTS_DIR = tmp/obj
+UI_DIR = tmpui
+MOC_DIR = tmpmoc
+RCC_DIR = tmprcc
+OBJECTS_DIR = tmpobj
 RESOURCES = $${MYNAME}.qrc
 
 FORMS = \
