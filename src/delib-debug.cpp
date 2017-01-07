@@ -41,6 +41,7 @@ static DebugLog *staticLog(0);
 
 void MyOwnMessageOutput (QtMsgType type, const QMessageLogContext &context , const QString& msg)
 {
+  Q_UNUSED(context);
 #if DELIBERATE_DEBUG
   switch (type) {
   case QtDebugMsg:
