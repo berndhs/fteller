@@ -28,24 +28,7 @@ MYNAME = fteller
 TEMPLATE = app
 
 QT += core widgets gui
-#CONFIG += debug_and_release
 DEFINES += DELIBERATE_DEBUG
-
-#MAKEFILE = Make_$${MYNAME}
-
-#CONFIG(debug, debug|release) {
-#  TARGET = bin/$${MYNAME}_d
-#  OBJECTS_DIR = tmp/debug/obj
-#  message ("DEBUG cxx-flags used $${QMAKE_CXXFLAGS_DEBUG}")
-#  message ("DEBUG c-flags used $${QMAKE_CFLAGS_DEBUG}")
-#} else {
-#  TARGET = $${MYNAME}
-#  OBJECTS_DIR = tmp/release/obj
-#  QMAKE_CXXFLAGS_RELEASE -= -g
-#  QMAKE_CFLAGS_RELEASE -= -g
-#  message ("RELEASE cxx-flags used $${QMAKE_CXXFLAGS_RELEASE}")
-#  message ("RELEASE c-flags used $${QMAKE_CFLAGS_RELEASE}")
-#}
 
 
 
