@@ -3,8 +3,8 @@
 Name=Nothing Program
 GenericName=GUI Application that does nothing
 Comment=Framework to do something
-Exec=denada
-Icon=denada
+Exec=fteller
+Icon=fteller
 StartupNotify=false
 Terminal=false
 Type=Application

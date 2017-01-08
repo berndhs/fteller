@@ -11,6 +11,8 @@ fteller::fteller(QWidget *parent, Qt::WindowFlags flags)
     configEdit(this)
 {
   mainUi.setupUi(this);
+  mainUi.appName->setText(tr("fteller"));
+//  mainUi.appName
   fortuneTicker = new QTimer(this);
   tickerSetting = QString ("delays/updatesFrequency");
   if (Settings().contains(tickerSetting)) {
