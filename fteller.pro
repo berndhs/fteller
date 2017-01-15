@@ -1,5 +1,5 @@
 #
-# fortune application
+# fortune teller application
 #
 
 #/****************************************************************
@@ -28,6 +28,10 @@ MYNAME = fteller
 TEMPLATE = app
 
 QT += core widgets gui
+QT += quick
+QT += quickwidgets
+QT += qml
+
 DEFINES += DELIBERATE_DEBUG
 
 
@@ -42,6 +46,8 @@ FORMS = \
         ui/$${MYNAME}.ui \
         ui/DebugLog.ui \
         ui/config-edit.ui \
+    ui/DebugLog.ui \
+    ui/config-edit.ui
         
 
 HEADERS = \

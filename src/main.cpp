@@ -88,7 +88,7 @@ main (int argc, char *argv[])
   }
 #endif
   
-  fteller::fteller   fteller;
+  fteller::fteller   fteller(app);
 
   app.setWindowIcon (fteller.windowIcon());
 //  fteller.Init (app);

@@ -19,7 +19,7 @@ class fteller : public QMainWindow
 {
   Q_OBJECT
 public:
-  explicit fteller(QWidget *parent = 0, Qt::WindowFlags flags = Qt::WindowFlags());
+  explicit fteller(QApplication & dApp, QWidget *parent = 0, Qt::WindowFlags flags = Qt::WindowFlags());
   void  Init (QGuiApplication &ap);
 
   void  AddConfigMessages (const QStringList & cm)
@@ -52,8 +52,11 @@ private slots:
 private:
   void Connect ();
   void CloseCleanup ();
+  void SetFortune (const QString & txt);
 
   QGuiApplication    *app;
+
+  QObject * rootBox;
 
   Ui_FTellerMain      mainUi;
   QStringList     fortuneData;
@@ -61,6 +64,8 @@ private:
   std::int32_t  tickerSecs;
   QString       tickerSetting;
   QStringList     configMessages;
+
+  QString         osName;
 
   ConfigEdit       configEdit;
   QProcess         runFortune;
